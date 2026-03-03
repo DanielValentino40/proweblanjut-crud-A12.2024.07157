@@ -21,11 +21,11 @@
                 <th>Tanggal Masuk</th>
                 <th>Aksi</th>
             </tr>
-            <?php while ($row = $result->fetch_assoc()): ?>
+            <?php while ($row = $result->fetch(PDO::FETCH_ASSOC)): ?>
             <tr>
                 <td><?= $row['id'] ?></td>
                 <td><?= $row['nama_barang'] ?></td>
-                <td><?= $row['jumlah_barang'] ?></td>
+                <td><?= $row['jumlah'] ?></td>
                 <td><?= $row['harga'] ?></td>
                 <td><?= $row['tanggal_masuk'] ?></td>
                 <td>
