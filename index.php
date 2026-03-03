@@ -11,7 +11,7 @@
     </head>
     <body>
         <h2>Daftar Barang</h2>
-        <a href="create.php">Tambah Barang</a>
+        <a href="tambah.php">Tambah Barang</a>
         <table border="1">
             <tr>
                 <th>ID</th>
