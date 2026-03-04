@@ -2,7 +2,10 @@
 
 body {
     font-family: 'Inter', sans-serif;
-    background-color: #f4f7f6;
+    background-image: linear-gradient(to bottom right, #46b1e1, #00194c);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
     color: #333;
     margin: 0;
     padding: 40px 20px;
@@ -13,7 +16,7 @@ body {
 .container {
     background-color: #ffffff;
     width: 100%;
-    max-width: 800px;
+    max-width: 900px;
     padding: 30px;
     border-radius: 10px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);

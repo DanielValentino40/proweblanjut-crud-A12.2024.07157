@@ -21,7 +21,7 @@
         <link rel="stylesheet" href="css.css">
     </head>
 <body>
-    <div>
+    <div class="container">
         <h2>Edit Barang</h2>
         <form method="POST">
             <div class="form-group">
@@ -29,7 +29,7 @@
                 <input type="text" name="nama_barang"
                     value="<?= htmlspecialchars($barang['nama_barang']) ?>" required><br>
             </div>
-            
+
             <div class="form-group">
                 Jumlah: 
                 <input type="number" name="jumlah"

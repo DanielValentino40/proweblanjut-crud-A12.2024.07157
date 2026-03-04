@@ -18,7 +18,7 @@
         <link rel="stylesheet" href="css.css">
     </head>
 <body>
-    <div>
+    <div class="container">
         <h2>Tambah Barang</h2>
         <form method="POST">
             <div class="form-group">
@@ -36,7 +36,7 @@
             <div class="form-group">
                 Tanggal Masuk: <input type="date" name="tanggal_masuk" required><br>
             </div>
-            
+
             <button type="submit">Simpan</button>
         </form>
     </div>
