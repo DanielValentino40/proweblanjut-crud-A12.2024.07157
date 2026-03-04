@@ -13,14 +13,32 @@
 ?>
 <!DOCTYPE html>
 <html>
+    <head>
+        <title>Form Tambah Barang</title>
+        <link rel="stylesheet" href="css.css">
+    </head>
 <body>
-    <h2>Tambah Pengguna</h2>
-    <form method="POST">
-        Nama Barang: <input type="text" name="nama_barang" required><br>
-        Jumlah: <input type="number" name="jumlah" required><br>
-        Harga: <input type="number" name="harga" required><br>
-        Tanggal Masuk: <input type="date" name="tanggal_masuk" required><br>
-        <button type="submit">Simpan</button>
-    </form>
+    <div>
+        <h2>Tambah Barang</h2>
+        <form method="POST">
+            <div class="form-group">
+                Nama Barang: <input type="text" name="nama_barang" required><br>
+            </div>
+
+            <div class="form-group">
+                Jumlah: <input type="number" name="jumlah" required><br>
+            </div>
+
+            <div class="form-group">
+                Harga: <input type="number" name="harga" required><br>
+            </div>
+
+            <div class="form-group">
+                Tanggal Masuk: <input type="date" name="tanggal_masuk" required><br>
+            </div>
+            
+            <button type="submit">Simpan</button>
+        </form>
+    </div>
 </body>
 </html>

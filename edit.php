@@ -4,7 +4,7 @@
     include 'koneksi.php';
     $id = $_GET['id'];
     $barang = $conn->query("SELECT * FROM barang WHERE id=$id")->
-    fetch_assoc();
+    fetch(PDO::FETCH_ASSOC);
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $nama_barang = $_POST['nama_barang'];
     $jumlah = $_POST['jumlah'];
@@ -16,18 +16,40 @@
 ?>
 <!DOCTYPE html>
 <html>
+    <head>
+        <title>Form Edit Barang</title>
+        <link rel="stylesheet" href="css.css">
+    </head>
 <body>
-    <h2>Edit Barang</h2>
-    <form method="POST">
-        Nama Barang: <input type="text" name="nama_barang" value="<?= $barang['nama_barang'] ?>"
-        required><br>
-        Jumlah: <input type="number" name="jumlah" value="<?= $barang['jumlah'] ?>"
-        required><br>
-        Harga: <input type="number" name="harga" value="<?= $barang['harga'] ?>"
-        required><br>
-        Tanggal Masuk: <input type="date" name="tanggal_masuk" value="<?= $barang['tanggal_masuk'] ?>"
-        required><br>
-        <button type="submit">Update</button>
-    </form>
+    <div>
+        <h2>Edit Barang</h2>
+        <form method="POST">
+            <div class="form-group">
+                Nama Barang: 
+                <input type="text" name="nama_barang"
+                    value="<?= htmlspecialchars($barang['nama_barang']) ?>" required><br>
+            </div>
+            
+            <div class="form-group">
+                Jumlah: 
+                <input type="number" name="jumlah"
+                    value="<?= htmlspecialchars($barang['jumlah']) ?>" required><br>
+            </div>
+
+            <div class="form-group">
+                Harga: 
+                <input type="number" name="harga"
+                    value="<?= htmlspecialchars($barang['harga']) ?>" required><br>
+            </div>
+
+            <div class="form-group">
+                Tanggal Masuk: 
+                <input type="date" name="tanggal_masuk"
+                    value="<?= htmlspecialchars($barang['tanggal_masuk']) ?>" required><br>
+            </div>
+
+            <button type="submit">Update</button>
+        </form>
+    </div>    
 </body>
 </html>
