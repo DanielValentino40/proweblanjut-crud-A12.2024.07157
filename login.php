@@ -183,7 +183,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <div class="form-group">
                 <label for="passw">Password</label>
                 <input type="password" id="passw" name="passw" required 
-                       placeholder="Masukkan password Anda" autocomplete="new-password">
+                       placeholder="Masukkan password Anda" autocomplete="off">
             </div>
             
             <button type="submit" class="btn-login">Login</button>

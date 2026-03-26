@@ -178,7 +178,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div class="form-group">
                 <label for="passw">Password</label>
                 <input type="password" id="passw" name="passw" required 
-                       placeholder="Buat password (min. 6 karakter)" autocomplete="new-password">
+                       placeholder="Buat password (min. 6 karakter)" autocomplete="off">
             </div>
             
             <button type="submit" class="btn-register">Daftar Sekarang</button>
