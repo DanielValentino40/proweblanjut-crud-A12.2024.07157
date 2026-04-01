@@ -4,6 +4,30 @@
 session_start();
 include 'koneksi.php';
 
+if (!empty($_SESSION['user_id'])) {
+    header('Location: index.php');
+    exit;
+}
+
+// ── Jika session kosong, cek COOKIE
+if (empty($_SESSION['user_id']) && !empty($_COOKIE['user_id'])) {
+    $stmt = $conn->prepare("SELECT * FROM users WHERE id = :id LIMIT 1");
+    $stmt->execute([':id' => $_COOKIE['user_id']]);
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if ($user) {
+        // Cookie valid → restore session → redirect ke index
+        $_SESSION['user_id'] = $user['id'];
+        $_SESSION['name']    = $user['name'];
+        header('Location: index.php');
+        exit;
+    } else {
+        // Cookie tidak valid → hapus cookie
+        setcookie('user_id',   '', time() - 3600, '/');
+        setcookie('user_name', '', time() - 3600, '/');
+    }
+}
+
 $error = '';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
