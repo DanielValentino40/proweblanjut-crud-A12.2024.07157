@@ -38,7 +38,7 @@
                 <?php endwhile; ?>
             </table>
             <br>
-            <a href="login.php">Logout</a>
+            <a href="logout.php">Logout</a>
         </div>
     </body>
 </html>
