@@ -2,7 +2,8 @@
 
 <?php
     include 'koneksi.php';
-    $result = $conn->query("SELECT * FROM barang");
+    $result = $conn->prepare("SELECT * FROM barang");
+    $result->execute();
 ?>
 <!DOCTYPE html>
 <html>
