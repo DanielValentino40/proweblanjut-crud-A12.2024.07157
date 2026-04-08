@@ -30,7 +30,7 @@
 <body>
     <div class="container">
         <h2>Tambah Barang</h2>
-        <form method="POST">
+        <form method="POST" enctype="multipart/form-data">
             <div class="form-group">
                 Nama Barang: <input type="text" name="nama_barang" required><br>
             </div>
@@ -45,6 +45,10 @@
 
             <div class="form-group">
                 Tanggal Masuk: <input type="date" name="tanggal_masuk" required><br>
+            </div>
+
+            <div class="form-group">
+                Foto Barang: <input type="file" name="foto" accept="image/*"><br>
             </div>
 
             <button type="submit">Simpan</button>
