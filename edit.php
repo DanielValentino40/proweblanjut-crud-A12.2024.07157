@@ -12,6 +12,21 @@
         $nama_barang = $_POST['nama_barang'];
         $jumlah = $_POST['jumlah'];
         $harga = $_POST['harga'];
+        $foto = null;
+        if (isset($_FILES['foto']) && $_FILES['foto']['error'] === 0) {
+            $allowed_types = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
+            $max_size = 2 * 1024 * 1024; // 2MB
+
+            if (!in_array($_FILES['foto']['type'], $allowed_types)) {
+                $error = "Tipe file tidak diizinkan! Hanya JPG, PNG, GIF, WEBP.";
+            } elseif ($_FILES['foto']['size'] > $max_size) {
+                $error = "Ukuran file terlalu besar! Maksimal 2MB.";
+            } else {
+                $ext = pathinfo($_FILES['foto']['name'], PATHINFO_EXTENSION);
+                $foto = uniqid() . '.' . $ext; // nama unik agar tidak bentrok
+                move_uploaded_file($_FILES['foto']['tmp_name'], "uploads/" . $foto);
+            }
+        }
         $tanggal_masuk = $_POST['tanggal_masuk'];
         if (empty($nama_barang)) $error = "Nama barang tidak boleh kosong!";
         if (!is_numeric($jumlah) || $jumlah < 0) $error = "Jumlah harus angka positif!";
