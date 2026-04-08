@@ -7,7 +7,13 @@
         $jumlah = $_POST['jumlah'];
         $harga = $_POST['harga'];
         $tanggal_masuk = $_POST['tanggal_masuk'];
-        $conn->query("INSERT INTO barang (nama_barang, jumlah, harga, tanggal_masuk) VALUES ('$nama_barang', '$jumlah', '$harga', '$tanggal_masuk')");
+        $stmt = $conn->prepare("INSERT INTO barang (nama_barang, jumlah, harga, tanggal_masuk) 
+                    VALUES (:nama_barang, :jumlah, :harga, :tanggal_masuk)");
+        $stmt->bindParam(':nama_barang', $nama_barang);
+        $stmt->bindParam(':jumlah', $jumlah);
+        $stmt->bindParam(':harga', $harga);
+        $stmt->bindParam(':tanggal_masuk', $tanggal_masuk);
+        $stmt->execute();
         header("Location: index.php");
     }
 ?>
