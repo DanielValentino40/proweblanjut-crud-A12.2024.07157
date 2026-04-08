@@ -75,6 +75,12 @@
                     value="<?= htmlspecialchars($barang['tanggal_masuk']) ?>" required><br>
             </div>
 
+            <div class="form-group">
+                Foto Barang:
+                <input type="file" name="foto" accept="image/*"
+                    value="<?= htmlspecialchars($barang['foto']) ?>"><br>
+            </div>
+
             <button type="submit">Update</button>
         </form>
     </div>    
