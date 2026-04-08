@@ -2,10 +2,14 @@
 
 <?php
     include 'koneksi.php';
+    $error = '';
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $nama_barang = $_POST['nama_barang'];
         $jumlah = $_POST['jumlah'];
         $harga = $_POST['harga'];
+        if (empty($nama_barang)) $error = "Nama barang tidak boleh kosong!";
+        if (!is_numeric($jumlah) || $jumlah < 0) $error = "Jumlah harus angka positif!";
+        if (!is_numeric($harga) || $harga < 0) $error = "Harga harus angka positif!";
         $tanggal_masuk = $_POST['tanggal_masuk'];
         $stmt = $conn->prepare("INSERT INTO barang (nama_barang, jumlah, harga, tanggal_masuk) 
                     VALUES (:nama_barang, :jumlah, :harga, :tanggal_masuk)");

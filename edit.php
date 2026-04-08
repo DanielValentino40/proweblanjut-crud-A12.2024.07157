@@ -2,17 +2,21 @@
 
 <?php
     include 'koneksi.php';
+    $error = '';
     $id = $_GET['id'];
     $barang = $conn->prepare("SELECT * FROM barang WHERE id=:id");
     $barang->bindParam(':id', $id);
     $barang->execute();
     $barang = $barang->fetch(PDO::FETCH_ASSOC);
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $nama_barang = $_POST['nama_barang'];
-    $jumlah = $_POST['jumlah'];
-    $harga = $_POST['harga'];
-    $tanggal_masuk = $_POST['tanggal_masuk'];
-    $stmt = $conn->prepare("UPDATE barang SET nama_barang=:nama_barang, jumlah=:jumlah, harga=:harga, tanggal_masuk=:tanggal_masuk WHERE id=:id");
+        $nama_barang = $_POST['nama_barang'];
+        $jumlah = $_POST['jumlah'];
+        $harga = $_POST['harga'];
+        $tanggal_masuk = $_POST['tanggal_masuk'];
+        if (empty($nama_barang)) $error = "Nama barang tidak boleh kosong!";
+        if (!is_numeric($jumlah) || $jumlah < 0) $error = "Jumlah harus angka positif!";
+        if (!is_numeric($harga) || $harga < 0) $error = "Harga harus angka positif!";
+        $stmt = $conn->prepare("UPDATE barang SET nama_barang=:nama_barang, jumlah=:jumlah, harga=:harga, tanggal_masuk=:tanggal_masuk WHERE id=:id");
     $stmt->bindParam(':nama_barang', $nama_barang);
     $stmt->bindParam(':jumlah', $jumlah);
     $stmt->bindParam(':harga', $harga);
