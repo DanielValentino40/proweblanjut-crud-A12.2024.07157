@@ -3,6 +3,11 @@
 <?php
     include 'koneksi.php';
     $error = '';
+    $upload_dir = __DIR__ . '/uploads';
+    if (!is_dir($upload_dir)) {
+        mkdir($upload_dir, 0755, true);
+    }
+
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $nama_barang = $_POST['nama_barang'];
         $jumlah = $_POST['jumlah'];
@@ -22,18 +27,24 @@
             } else {
                 $ext = pathinfo($_FILES['foto']['name'], PATHINFO_EXTENSION);
                 $foto = uniqid() . '.' . $ext; // nama unik agar tidak bentrok
-                move_uploaded_file($_FILES['foto']['tmp_name'], "uploads/" . $foto);
+                if (!move_uploaded_file($_FILES['foto']['tmp_name'], $upload_dir . "/" . $foto)) {
+                    $error = "Gagal menyimpan file upload.";
+                }
             }
         }
         $tanggal_masuk = $_POST['tanggal_masuk'];
-        $stmt = $conn->prepare("INSERT INTO barang (nama_barang, jumlah, harga, tanggal_masuk, foto) 
-                    VALUES (:nama_barang, :jumlah, :harga, :tanggal_masuk, :foto)");
-        $stmt->bindParam(':nama_barang', $nama_barang);
-        $stmt->bindParam(':jumlah', $jumlah);
-        $stmt->bindParam(':harga', $harga);
-        $stmt->bindParam(':tanggal_masuk', $tanggal_masuk);
-        $stmt->execute();
-        header("Location: index.php");
+        if (!$error) {
+            $stmt = $conn->prepare("INSERT INTO barang (nama_barang, jumlah, harga, tanggal_masuk, foto) 
+                        VALUES (:nama_barang, :jumlah, :harga, :tanggal_masuk, :foto)");
+            $stmt->bindParam(':nama_barang', $nama_barang);
+            $stmt->bindParam(':jumlah', $jumlah);
+            $stmt->bindParam(':harga', $harga);
+            $stmt->bindParam(':tanggal_masuk', $tanggal_masuk);
+            $stmt->bindParam(':foto', $foto);
+            $stmt->execute();
+            header("Location: index.php");
+            exit;
+        }
     }
 ?>
 <!DOCTYPE html>
@@ -45,6 +56,9 @@
 <body>
     <div class="container">
         <h2>Tambah Barang</h2>
+        <?php if ($error): ?>
+            <p style="color:#d93025; margin-bottom:12px;"><?= htmlspecialchars($error) ?></p>
+        <?php endif; ?>
         <form method="POST" enctype="multipart/form-data">
             <div class="form-group">
                 Nama Barang: <input type="text" name="nama_barang" required><br>
@@ -64,10 +78,29 @@
 
             <div class="form-group">
                 Foto Barang: <input type="file" name="foto" accept="image/*"><br>
+                <img id="foto-preview" src="" alt="Preview foto" style="display:none; margin-top:10px; width:120px; height:120px; object-fit:cover; border-radius:6px;">
             </div>
 
             <button type="submit">Simpan</button>
         </form>
     </div>
+    <script>
+        const fotoInput = document.querySelector('input[name="foto"]');
+        const preview = document.getElementById('foto-preview');
+
+        if (fotoInput && preview) {
+            fotoInput.addEventListener('change', function () {
+                const file = this.files && this.files[0];
+                if (!file) {
+                    preview.style.display = 'none';
+                    preview.src = '';
+                    return;
+                }
+                const url = URL.createObjectURL(file);
+                preview.src = url;
+                preview.style.display = 'block';
+            });
+        }
+    </script>
 </body>
 </html>
