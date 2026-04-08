@@ -8,6 +8,45 @@
         mkdir($upload_dir, 0755, true);
     }
 
+    function saveCompressedImage($tmp_file, $mime_type, $destination)
+    {
+        if (!extension_loaded('gd')) {
+            return move_uploaded_file($tmp_file, $destination);
+        }
+
+        switch ($mime_type) {
+            case 'image/jpeg':
+                $image = imagecreatefromjpeg($tmp_file);
+                if (!$image) return false;
+                $saved = imagejpeg($image, $destination, 75);
+                imagedestroy($image);
+                return $saved;
+            case 'image/png':
+                $image = imagecreatefrompng($tmp_file);
+                if (!$image) return false;
+                $saved = imagepng($image, $destination, 6);
+                imagedestroy($image);
+                return $saved;
+            case 'image/webp':
+                if (!function_exists('imagecreatefromwebp') || !function_exists('imagewebp')) {
+                    return move_uploaded_file($tmp_file, $destination);
+                }
+                $image = imagecreatefromwebp($tmp_file);
+                if (!$image) return false;
+                $saved = imagewebp($image, $destination, 75);
+                imagedestroy($image);
+                return $saved;
+            case 'image/gif':
+                $image = imagecreatefromgif($tmp_file);
+                if (!$image) return false;
+                $saved = imagegif($image, $destination);
+                imagedestroy($image);
+                return $saved;
+            default:
+                return false;
+        }
+    }
+
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $nama_barang = $_POST['nama_barang'];
         $jumlah = $_POST['jumlah'];
@@ -19,15 +58,21 @@
         if (isset($_FILES['foto']) && $_FILES['foto']['error'] === 0) {
             $allowed_types = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
             $max_size = 2 * 1024 * 1024; // 2MB
+            $file_type = mime_content_type($_FILES['foto']['tmp_name']);
 
-            if (!in_array($_FILES['foto']['type'], $allowed_types)) {
+            if (!in_array($file_type, $allowed_types, true)) {
                 $error = "Tipe file tidak diizinkan! Hanya JPG, PNG, GIF, WEBP.";
             } elseif ($_FILES['foto']['size'] > $max_size) {
                 $error = "Ukuran file terlalu besar! Maksimal 2MB.";
             } else {
                 $ext = pathinfo($_FILES['foto']['name'], PATHINFO_EXTENSION);
                 $foto = uniqid() . '.' . $ext; // nama unik agar tidak bentrok
-                if (!move_uploaded_file($_FILES['foto']['tmp_name'], $upload_dir . "/" . $foto)) {
+                $saved = saveCompressedImage(
+                    $_FILES['foto']['tmp_name'],
+                    $file_type,
+                    $upload_dir . "/" . $foto
+                );
+                if (!$saved) {
                     $error = "Gagal menyimpan file upload.";
                 }
             }
@@ -79,6 +124,7 @@
             <div class="form-group">
                 Foto Barang: <input type="file" name="foto" accept="image/*"><br>
                 <img id="foto-preview" src="" alt="Preview foto" style="display:none; margin-top:10px; width:120px; height:120px; object-fit:cover; border-radius:6px;">
+                <button type="button" id="hapus-foto-btn" style="display:none; margin-top:8px;">Hapus gambar pilihan</button>
             </div>
 
             <button type="submit">Simpan</button>
@@ -87,19 +133,30 @@
     <script>
         const fotoInput = document.querySelector('input[name="foto"]');
         const preview = document.getElementById('foto-preview');
+        const clearButton = document.getElementById('hapus-foto-btn');
 
-        if (fotoInput && preview) {
+        function clearPreview() {
+            if (!fotoInput || !preview || !clearButton) return;
+            fotoInput.value = '';
+            preview.style.display = 'none';
+            preview.src = '';
+            clearButton.style.display = 'none';
+        }
+
+        if (fotoInput && preview && clearButton) {
             fotoInput.addEventListener('change', function () {
                 const file = this.files && this.files[0];
                 if (!file) {
-                    preview.style.display = 'none';
-                    preview.src = '';
+                    clearPreview();
                     return;
                 }
                 const url = URL.createObjectURL(file);
                 preview.src = url;
                 preview.style.display = 'block';
+                clearButton.style.display = 'inline-block';
             });
+
+            clearButton.addEventListener('click', clearPreview);
         }
     </script>
 </body>
