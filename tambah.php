@@ -21,27 +21,38 @@
                 $saved = imagejpeg($image, $destination, 75);
                 imagedestroy($image);
                 return $saved;
+
             case 'image/png':
                 $image = imagecreatefrompng($tmp_file);
                 if (!$image) return false;
+                // Pertahankan transparansi PNG
+                imagealphablending($image, false);
+                imagesavealpha($image, true);
                 $saved = imagepng($image, $destination, 6);
                 imagedestroy($image);
                 return $saved;
+
             case 'image/webp':
                 if (!function_exists('imagecreatefromwebp') || !function_exists('imagewebp')) {
                     return move_uploaded_file($tmp_file, $destination);
                 }
                 $image = imagecreatefromwebp($tmp_file);
                 if (!$image) return false;
-                $saved = imagewebp($image, $destination, 75);
+                $saved = imagewebp($image, $destination, 80);
                 imagedestroy($image);
                 return $saved;
+
             case 'image/gif':
                 $image = imagecreatefromgif($tmp_file);
                 if (!$image) return false;
+                $transparentIndex = imagecolortransparent($image);
+                if ($transparentIndex >= 0) {
+                    imagecolortransparent($image, $transparentIndex);
+                }
                 $saved = imagegif($image, $destination);
                 imagedestroy($image);
                 return $saved;
+
             default:
                 return false;
         }

@@ -22,8 +22,8 @@
                     <th>Jumlah Barang</th>
                     <th>Harga</th>
                     <th>Tanggal Masuk</th>
-                    <th>Aksi</th>
                     <th>Foto</th>
+                    <th>Aksi</th>
                 </tr>
                 <?php while ($row = $result->fetch(PDO::FETCH_ASSOC)): ?>
                 <tr>
