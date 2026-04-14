@@ -1,3 +1,4 @@
+<!-- http://localhost/public/index.php -->
 <?php
 session_start();
 
@@ -12,28 +13,28 @@ if (in_array($page, $protected) && empty($_SESSION['user_id'])) {
 
 switch ($page) {
     case 'barang':
-        include 'controllers/BarangController.php';
+        include __DIR__ . '/../controllers/BarangController.php';
         break;
     case 'tambah':
-        include 'controllers/TambahController.php';
+        include __DIR__ . '/../controllers/TambahController.php';
         break;
     case 'edit':
-        include 'controllers/EditController.php';
+        include __DIR__ . '/../controllers/EditController.php';
         break;
     case 'hapus':
-        include 'controllers/HapusController.php';
+        include __DIR__ . '/../controllers/HapusController.php';
         break;
     case 'login':
-        include 'controllers/AuthController.php';
+        include __DIR__ . '/../controllers/AuthController.php';
         break;
     case 'register':
-        include 'controllers/RegisterController.php';
+        include __DIR__ . '/../controllers/RegisterController.php';
         break;
     case 'logout':
-        include 'controllers/LogoutController.php';
+        include __DIR__ . '/../controllers/LogoutController.php';
         break;
     default:
-        include 'controllers/AuthController.php';
+        include __DIR__ . '/../controllers/AuthController.php';
         break;
 }
 ?>
