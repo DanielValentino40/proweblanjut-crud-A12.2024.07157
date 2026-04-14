@@ -4,7 +4,7 @@ include __DIR__ . '/../models/BarangModel.php';
 
 $model  = new BarangModel($conn);
 $error  = '';
-$upload_dir = __DIR__ . '/../uploads';
+$upload_dir = __DIR__ . '/../uploads/thumbnails';
 
 if (!is_dir($upload_dir)) mkdir($upload_dir, 0755, true);
 

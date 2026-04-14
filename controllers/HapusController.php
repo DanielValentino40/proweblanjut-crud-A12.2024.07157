@@ -4,7 +4,7 @@ include __DIR__ . '/../models/BarangModel.php';
 
 $model      = new BarangModel($conn);
 $id         = $_GET['id'] ?? null;
-$upload_dir = __DIR__ . '/../uploads';
+$upload_dir = __DIR__ . '/../uploads/thumbnails';
 
 // Hapus foto dari folder jika ada
 $barang = $model->getBarangById($id);

@@ -5,7 +5,7 @@ include __DIR__ . '/../models/BarangModel.php';
 $model      = new BarangModel($conn);
 $error      = '';
 $id         = $_GET['id'] ?? null;
-$upload_dir = __DIR__ . '/../uploads';
+$upload_dir = __DIR__ . '/../uploads/thumbnails';
 $barang     = $model->getBarangById($id);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {

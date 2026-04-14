@@ -3,7 +3,7 @@
 <?php
     include 'koneksi.php';
     $error = '';
-    $upload_dir = __DIR__ . '/uploads';
+    $upload_dir = __DIR__ . '/../uploads/thumbnails';
     if (!is_dir($upload_dir)) {
         mkdir($upload_dir, 0755, true);
     }
@@ -160,7 +160,7 @@
                 <input type="file" name="foto" accept="image/*"><br>
                 <input type="hidden" name="hapus_foto" id="hapus_foto" value="0">
                 <?php if (!empty($barang['foto'])): ?>
-                    <img id="foto-preview" src="uploads/<?= htmlspecialchars($barang['foto']) ?>" alt="Preview foto" style="margin-top:10px; width:120px; height:120px; object-fit:cover; border-radius:6px;">
+                    <img id="foto-preview" src="../uploads/<?= htmlspecialchars($barang['foto']) ?>" alt="Preview foto" style="margin-top:10px; width:120px; height:120px; object-fit:cover; border-radius:6px;">
                 <?php else: ?>
                     <img id="foto-preview" src="" alt="Preview foto" style="display:none; margin-top:10px; width:120px; height:120px; object-fit:cover; border-radius:6px;">
                 <?php endif; ?>

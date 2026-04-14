@@ -27,7 +27,7 @@
                     <td><?= $row['tanggal_masuk'] ?></td>
                     <td>
                         <?php if ($row['foto']): ?>
-                            <img src="../uploads/<?= $row['foto'] ?>" width="60" height="60"
+                            <img src="../uploads/thumbnails<?= $row['foto'] ?>" width="60" height="60"
                                 style="object-fit:cover; border-radius:4px;">
                         <?php else: ?>
                             <span style="color:#999">Tidak ada foto</span>
