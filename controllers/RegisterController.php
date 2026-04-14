@@ -6,11 +6,16 @@ $model   = new UserModel($conn);
 $success = false;
 $error   = '';
 
+$name             = '';
+$email            = '';
+$passw            = '';
+$confirm_password = '';
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $name             = $_POST['name'];
-    $email            = $_POST['email'];
-    $passw            = $_POST['passw'];
-    $confirm_password = $_POST['confirm_password'];
+    $name             = $_POST['name']             ?? '';
+    $email            = $_POST['email']            ?? '';
+    $passw            = $_POST['passw']            ?? '';
+    $confirm_password = $_POST['confirm_password'] ?? '';
 
     if ($passw !== $confirm_password) {
         $error = "Password dan konfirmasi password tidak cocok!";

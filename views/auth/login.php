@@ -216,7 +216,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </div>
 
             <div class="register-link">
-                Belum punya akun? <a href="register.php">Daftar di sini</a>
+                Belum punya akun? <a href="index.php?page=register">Daftar di sini</a>
             </div>
         </form>
     </div>

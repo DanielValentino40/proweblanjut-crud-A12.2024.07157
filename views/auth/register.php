@@ -184,7 +184,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <button type="submit" class="btn-register">Daftar Sekarang</button>
             
             <div class="login-link">
-                Sudah punya akun? <a href="login.php">Login di sini</a>
+                Sudah punya akun? <a href="index.php?page=login">Login di sini</a>
             </div>
         </form>
     </div>
