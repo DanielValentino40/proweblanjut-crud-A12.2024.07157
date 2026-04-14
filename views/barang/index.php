@@ -1,10 +1,3 @@
-<!-- http://localhost/index.php -->
-
-<?php
-    include 'koneksi.php';
-    $result = $conn->prepare("SELECT * FROM barang");
-    $result->execute();
-?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -14,7 +7,7 @@
     <body>
         <div class="container">
             <h2>Daftar Barang</h2>
-            <a href="tambah.php">Tambah Barang</a>
+            <a href="index.php?page=tambah">Tambah Barang</a>
             <table border="1">
                 <tr>
                     <th>ID</th>
@@ -25,7 +18,7 @@
                     <th>Foto</th>
                     <th>Aksi</th>
                 </tr>
-                <?php while ($row = $result->fetch(PDO::FETCH_ASSOC)): ?>
+                <?php foreach ($barang as $row): ?>
                 <tr>
                     <td><?= $row['id'] ?></td>
                     <td><?= $row['nama_barang'] ?></td>
@@ -34,21 +27,22 @@
                     <td><?= $row['tanggal_masuk'] ?></td>
                     <td>
                         <?php if ($row['foto']): ?>
-                            <img src="uploads/<?= $row['foto'] ?>" width="60" height="60" 
+                            <img src="uploads/<?= $row['foto'] ?>" width="60" height="60"
                                 style="object-fit:cover; border-radius:4px;">
                         <?php else: ?>
                             <span style="color:#999">Tidak ada foto</span>
                         <?php endif; ?>
                     </td>
                     <td>
-                        <a href="edit.php?id=<?= $row['id'] ?>">✏️Edit</a> |
-                        <a href="hapus.php?id=<?= $row['id'] ?>" onclick=" return confirm('Hapus data?')">🗑️Hapus</a>
+                        <a href="index.php?page=edit&id=<?= $row['id'] ?>">✏️Edit</a> |
+                        <a href="index.php?page=hapus&id=<?= $row['id'] ?>"
+                           onclick="return confirm('Hapus data?')">🗑️Hapus</a>
                     </td>
                 </tr>
-                <?php endwhile; ?>
+                <?php endforeach; ?>
             </table>
             <br>
-            <a href="logout.php">Logout</a>
+            <a href="index.php?page=logout">Logout</a>
         </div>
     </body>
 </html>
