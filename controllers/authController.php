@@ -1,5 +1,5 @@
 <?php
-include __DIR__ . '/../koneksi.php';
+include __DIR__ . '/../public/koneksi.php';
 include __DIR__ . '/../models/UserModel.php';
 
 $model = new UserModel($conn);

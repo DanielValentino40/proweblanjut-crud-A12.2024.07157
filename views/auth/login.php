@@ -1,7 +1,6 @@
 <!-- http://localhost/login.php -->
 
 <?php
-session_start();
 include 'koneksi.php';
 
 if (!empty($_SESSION['user_id'])) {
