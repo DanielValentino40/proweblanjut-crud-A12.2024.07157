@@ -1,7 +1,7 @@
 <!-- http://localhost/views/auth/register.php -->
 
 <?php
-include "../../public/koneksi.php";
+include "../public/koneksi.php";
 
 $success = false;
 $error = false;
