@@ -1,7 +1,7 @@
-<!-- http://localhost/login.php -->
+<!-- http://localhost/views/auth/login.php -->
 
 <?php
-include 'koneksi.php';
+include "../../public/koneksi.php";
 
 if (!empty($_SESSION['user_id'])) {
     header('Location: index.php');
