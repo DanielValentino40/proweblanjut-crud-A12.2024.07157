@@ -1,5 +1,3 @@
-<!-- http://localhost/api/read.php -->
-
 <?php
 
 header("Content-Type: application/json; charset=UTF-8");

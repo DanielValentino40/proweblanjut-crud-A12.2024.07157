@@ -1,5 +1,3 @@
-<!-- http://localhost/api/update.php -->
-
 <?php
 
 header("Content-Type: application/json; charset=UTF-8");
